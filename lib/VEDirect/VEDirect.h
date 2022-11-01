@@ -41,6 +41,7 @@ enum VE_DIRECT_DATA {
 	VE_POWERPV,
 	VE_CURRENT,
 	VE_ALARM,
+	VE_VOLTAGE,
 	VE_LAST_LABEL,
 };
 
@@ -50,6 +51,7 @@ const char ved_labels[VE_LAST_LABEL][VED_MAX_LEBEL_SIZE] PROGMEM = {
 		"VPV",
 		"PPV",
 		"I",
+		"V",
 		"Alarm",
 };
 

@@ -50,7 +50,7 @@ int32_t VEDirect::read(uint8_t target) {
 
 	uint16_t loops = VED_MAX_READ_LOOPS;
 	uint8_t lines = VED_MAX_READ_LINES;
-	int32_t ret = 0;					// The value to be returned
+	long int ret = 0;					// The value to be returned
 	char line[VED_LINE_SIZE] = "\0";	// Line buffer
 	uint8_t idx = 0;					// Line buffer index
 	char* label;
