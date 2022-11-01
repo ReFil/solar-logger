@@ -15,7 +15,7 @@
 unsigned long myChannelNumber = SECRET_CH_ID;
 const char * myWriteAPIKey = SECRET_WRITE_APIKEY;
 
-int32_t VE_power, VE_voltage, VE_current;
+int32_t VE_powerpv, VE_voltage, VE_voltagepv, VE_current;
 
 
 VEDirect myve(RX1, TX1);
@@ -32,9 +32,10 @@ void setup() {
   delay(100);
 
   if(myve.begin()) {									// test connection
-		VE_power = myve.read(VE_POWERPV);
-		VE_voltage = myve.read(VE_VOLTAGEPV);
+		VE_powerpv = myve.read(VE_POWERPV);
+		VE_voltagepv = myve.read(VE_VOLTAGEPV);
 		VE_current = myve.read(VE_CURRENT);
+    VE_voltage = myve.read(VE_VOLTAGE);
 	} else {
 		Serial.println("Could not open serial port to VE device");
 		while (1);
@@ -59,9 +60,26 @@ void loop() {
     }
     Serial.println("\nConnected.");
   }
+  VE_powerpv = myve.read(VE_POWERPV);
+  VE_voltagepv = myve.read(VE_VOLTAGEPV);
+  VE_current = myve.read(VE_CURRENT);
+  VE_voltage = myve.read(VE_VOLTAGE);
 
-  bool current_mA = 0;
-  ThingSpeak.setField(1, current_mA);
+  float powerpv = (float)VE_powerpv/1000; 
+  float voltagepv = (float)VE_voltagepv/1000; 
+  float current = (float)VE_current/1000; 
+  float voltage = (float)VE_voltage/1000; 
+
+ //battery management code goes here
+ /* if(battvolt < 12.00)
+  //some power off code
+  else if    
+
+*/
+  ThingSpeak.setField(1, powerpv);
+  ThingSpeak.setField(2, voltagepv);
+  ThingSpeak.setField(3, current);
+  ThingSpeak.setField(4, voltage);
 
 
   int httpCode1 = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
@@ -74,5 +92,5 @@ void loop() {
   }
 
   // Wait 20 seconds to update the channel again
-  delay(20000);
+  delay(50000);
 }
