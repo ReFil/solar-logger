@@ -10,6 +10,9 @@
 #define TX2 D3
 #define RX2 D4
 
+#define RELAY_1 D5
+#define RELAY_2 D6 
+
 #define SCALE 100
 
 unsigned long myChannelNumber = SECRET_CH_ID;
