@@ -51,8 +51,9 @@ const char ved_labels[VE_LAST_LABEL][VED_MAX_LEBEL_SIZE] PROGMEM = {
 		"VPV",
 		"PPV",
 		"I",
-		"V",
 		"Alarm",
+		"V",
+		
 };
 
 class VEDirect {
